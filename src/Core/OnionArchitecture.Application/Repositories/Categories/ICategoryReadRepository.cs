@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnionArchitecture.Application.Repositories
+namespace OnionArchitecture.Application.Repositories.Categories
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface ICategoryReadRepository:IReadRepository<Category>
     {
     }
 }

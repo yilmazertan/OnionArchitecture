@@ -1,10 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnionArchitecture.Application.Feature.CQRS.Command.Products.CreateProducts;
 using OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProducts;
 using OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProductWithCategory;
 using OnionArchitecture.Application.Repositories;
+using OnionArchitecture.Application.Repositories.Products;
+using OnionArchitecture.Application.Validator.Product;
+using OnionArchitecture.Domain.CustomResult;
 using OnionArchitecture.Domain.Entities;
+using System.Net;
 
 namespace OnionArchitecture.WebApi.Controllers
 {
@@ -13,21 +18,26 @@ namespace OnionArchitecture.WebApi.Controllers
     public class ProductsController : ControllerBase
     {
 
-        private readonly IProductRepository _productRepository;
+        private readonly IProductReadRepository productReadRepository;
+        private readonly IProductWriteRepository productWriteRepository;
         private readonly IMediator _mediator;
 
-        public ProductsController(IMediator mediator, IProductRepository productRepository)
+        public ProductsController(IMediator mediator, IProductReadRepository productReadRepository, IProductWriteRepository productWriteRepository)
         {
             _mediator = mediator;
-            _productRepository = productRepository;
+            this.productReadRepository = productReadRepository;
+            this.productWriteRepository = productWriteRepository;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Add(Product product)
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Products(CreateProductCommandRequest request,ISender sender)
         {
-            var result = await _productRepository.AddAsync(product);
-            return Ok(result);
-
+            //var response = await _mediator.Send(request);
+            var response = await _mediator.Send(request);
+            return response.IsSuccess ? Ok(response) :
+                );
+            //return Ok(response);
+            
         }
 
         [HttpGet]

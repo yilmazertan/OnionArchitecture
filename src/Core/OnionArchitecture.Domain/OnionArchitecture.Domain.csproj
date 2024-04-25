@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CustomResult\**" />
+    <EmbeddedResource Remove="CustomResult\**" />
+    <None Remove="CustomResult\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
   </ItemGroup>
 

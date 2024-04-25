@@ -6,12 +6,12 @@ namespace OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProd
 {
     public class GetAllProductWithCategoryQueryHandler : IRequestHandler<GetAllProductWithCategoryQueryRequest, List<ProductwithCategoryDto>>
     {
-        private readonly IProductRepository _productRepository;
+         
         private readonly IMapper _mapper;
 
-        public GetAllProductWithCategoryQueryHandler(IProductRepository productRepository, IMapper mapper)
+        public GetAllProductWithCategoryQueryHandler(  IMapper mapper)
         {
-            _productRepository = productRepository;
+            
             _mapper = mapper;
         }
 
@@ -19,8 +19,9 @@ namespace OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProd
 
         public async Task<List<ProductwithCategoryDto>> Handle(GetAllProductWithCategoryQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await _productRepository.GetAllAsync(x => !x.IsDeleted, x => x.Category);
-            return _mapper.Map<List<ProductwithCategoryDto>>(result);
+            //var result = await _productRepository.GetAllAsync(null, x => x.Category);
+            //return _mapper.Map<List<ProductwithCategoryDto>>(result);
+            return null;
         }
     }
 }

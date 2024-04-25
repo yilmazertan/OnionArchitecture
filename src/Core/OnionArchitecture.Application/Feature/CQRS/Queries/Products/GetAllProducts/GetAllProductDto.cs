@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProducts
 {
-    public class ProductDto
+    public class GetAllProductDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

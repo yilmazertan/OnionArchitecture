@@ -1,12 +1,41 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using OnionArchitecture.Application;
+using OnionArchitecture.Application.Validator.Product;
 using OnionArchitecture.Persistance;
+using System.Reflection;
 
- 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(v => v.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>());
+       // .ConfigureApiBehaviorOptions(opt => opt.SuppressModelStateInvalidFilter = true);
+
+ 
+
+
+//builder.Services.AddControllersWithViews().AddFluentValidation(fv =>
+//{
+//    fv.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>();
+//});
+
+
+//builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateProductValidator>());
+
+//builder.Services.AddFluentValidationAutoValidation();
+//builder.Services.AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+////// or
+//services.AddValidatorsFromAssemblyContaining(typeof(SomeValidator));
+//// or
+//services.AddValidatorsFromAssembly(typeof(SomeValidator).Assembly);
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 #region Service Registration

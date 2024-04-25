@@ -10,22 +10,22 @@ namespace OnionArchitecture.WebApi.Controllers
     public class CategoriesController : ControllerBase
     {
 
-        private readonly ICategoryRepository categoryRepository;
+       
         private readonly IUnitOfWork unitOfWork;
-        public CategoriesController(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+        public CategoriesController(  IUnitOfWork unitOfWork)
         {
-            this.categoryRepository = categoryRepository;
+           
             this.unitOfWork = unitOfWork;
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Catergory(Category category)
-        {
-            var result = await categoryRepository.AddAsync(category);
-          await  unitOfWork.SaveChangesAsync();
-            return Ok(result);
+     //   [HttpPost]
+     //   public async Task<IActionResult> Catergory(Category category)
+     //   {
+     ////       var result = await categoryRepository.AddAsync(category);
+     //////     await  unitOfWork.SaveChangesAsync();
+     ////       return Ok(result);
 
-        }
+     //   }
     }
 }

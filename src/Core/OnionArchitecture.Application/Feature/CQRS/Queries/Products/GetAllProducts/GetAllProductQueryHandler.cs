@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using OnionArchitecture.Application.Repositories;
+using OnionArchitecture.Application.Services;
 using OnionArchitecture.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,23 +11,21 @@ using System.Threading.Tasks;
 
 namespace OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProducts
 {
-    public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryRequest, List<ProductDto>>
+    public class GetAllProductQueryHandler : IRequestHandler<GetAllProductQueryRequest, IList<GetAllProductDto>>
     {
-        private readonly IProductRepository  _productRepository;
+        
         private readonly IMapper _mapper;
-      
-        public GetAllProductQueryHandler(IProductRepository productRepository, IMapper mapper)
+        private readonly IProductService productService;
+        public GetAllProductQueryHandler(  IMapper mapper, IProductService productService)
         {
-            _productRepository = productRepository;
+            
             _mapper = mapper;
+            this.productService = productService;
         }
 
-        public async Task<List<ProductDto>> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
+        public async Task<IList<GetAllProductDto>> Handle(GetAllProductQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await _productRepository.GetAllAsync(x=>!x.IsDeleted, x=>x.Category);
-            
-            return _mapper.Map<List<ProductDto>>(result);
-
+            return await productService.GetAllProducts(cancellationToken);
         }
     }
 }

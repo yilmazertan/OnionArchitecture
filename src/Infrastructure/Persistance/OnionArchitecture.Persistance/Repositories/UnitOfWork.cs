@@ -1,10 +1,7 @@
 ﻿using OnionArchitecture.Application.Repositories;
+using OnionArchitecture.Application.Repositories.Products;
 using OnionArchitecture.Persistance.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OnionArchitecture.Persistance.Repositories.Products;
 
 namespace OnionArchitecture.Persistance.Repositories
 {
@@ -17,9 +14,19 @@ namespace OnionArchitecture.Persistance.Repositories
             _context = context;
         }
 
-        public async Task<int> SaveChangesAsync()
+        public IProductReadRepository ProductsRead =>new ProductReadRepository(_context);
+
+        public async ValueTask DisposeAsync()=> await _context.DisposeAsync();
+
+
+
+
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
-          return await  _context.SaveChangesAsync();
+          return await  _context.SaveChangesAsync(cancellationToken);
         }
+
+         
     }
 }

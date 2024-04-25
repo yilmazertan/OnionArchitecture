@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnionArchitecture.Application.Feature.CQRS.Queries.Products.GetAllProducts
 {
-    public class GetAllProductQueryRequest:IRequest<List<ProductDto>>
+    public class GetAllProductQueryRequest:IRequest<IList<GetAllProductDto>>
     {
     }
 }

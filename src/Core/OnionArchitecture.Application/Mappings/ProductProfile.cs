@@ -10,7 +10,7 @@ namespace OnionArchitecture.Application.Mappings
         public ProductProfile()
         {
             CreateMap<Product, ProductwithCategoryDto>();
-            CreateMap<Product, ProductDto>();
+            CreateMap<Product, GetAllProductDto>();
         }
     }
 }
